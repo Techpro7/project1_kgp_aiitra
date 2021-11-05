@@ -22,7 +22,7 @@
     <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>
   </include>
 
-  <param name="robot_description" command="$(find xacro)/xacro.py $(arg robot)" />
+  <param name="robot_description" command="$(find xacro)/xacro $(arg robot)" />
   <rosparam file="$(find aiitra)/src/config/pos_control.yaml" command="load"/>
   <node name="controller_spawner" pkg ="controller_manager" type="spawner" ns="/simple_model" args="base_to_second_joint_position_controller 		base_to_first_joint_position_controller  
 	joint_state_controller --shutdown-timeout 3"/>
