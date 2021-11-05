@@ -6,7 +6,7 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="robot" default="$(find aiitra)/src/model/micromouse_robot.urdf"/>
+  <arg name="robot" default="$(find aiitra)/src/models/micromouse_robot.urdf"/>
   <arg name="extra_gazebo_args" default="--verbose"/>
 
   <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find aiitra)/src/mesh"/>
