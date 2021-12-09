@@ -251,7 +251,7 @@
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
         <topicName>/my_mm_robot/laser/scan</topicName>
-        <frameName>sensor_laser</frameName>
+        <frameName>link_chassis</frameName>
       </plugin>
     </sensor>
   </gazebo>
