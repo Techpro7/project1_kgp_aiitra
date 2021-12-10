@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-	<include file="$(find omni3ros_pkg)/launch/urdf_gazebo_view.launch" />
+	<include file="$(find omni3ros_pkg)/launch/urdf_gazebo_view2.launch" />
 		
 
 	<!-- Load controllers -->
@@ -16,9 +16,5 @@
 	back_joint_velocity_controller
 	right_joint_velocity_controller
 	"/>
-	
-	<node pkg="omni3ros_pkg" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen">
-	</node>
-
 
 </launch>
