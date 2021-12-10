@@ -1,20 +1,14 @@
-kopen_base:
+open_base:
 
-    joint_state_controller:
-        type: joint_state_controller/JointStateController
-        publish_rate: 100
+    gazebo_ros_control:
 
-    left_joint_velocity_controller:
-        type: velocity_controllers/JointVelocityController
-        joint: rim_left_joint
-        pid: {p: 0.001, i: 0.0, d: 0.0}
+        pid_gains:
 
-    back_joint_velocity_controller:
-        type: velocity_controllers/JointVelocityController
-        joint: rim_back_joint
-        pid: {p: 0.001, i: 0.0, d: 0.0}
+            rim_left_joint:
+                {p: 0.001, i: 0.0, d: 0.0}
 
-    right_joint_velocity_controller:
-        type: velocity_controllers/JointVelocityController
-        joint: rim_right_joint
-        pid: {p: 0.001, i: 0.0, d: 0.0}
+            rim_back_joint:
+                {p: 0.001, i: 0.0, d: 0.0}
+
+            rim_right_joint:
+                {p: 0.001, i: 0.0, d: 0.0}
