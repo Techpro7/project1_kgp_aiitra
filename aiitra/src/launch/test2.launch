@@ -1,0 +1,54 @@
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="robot" default="$(find omni3ros_pkg)/urdf/main2.urdf.xacro"/>
+  <arg name="extra_gazebo_args" default="--verbose"/>
+
+  <!--env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find aiitra)/src/mesh"/>
+  <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find aiitra)/src/mesh"/-->
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--arg name="world_name" value="$(find aiitra)/src/worlds/aiitra_world_4.world"/-->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro $(arg robot)" />
+
+  <rosparam file="$(find aiitra)/src/config/pos_control.yaml" command="load"/>
+
+	<arg name="x" default="0.0" />
+	<arg name="y" default="0.0" />
+	<arg name="z" default="0.0" />
+	
+	<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model open_base -param robot_description"/>
+
+	<rosparam file="$(find omni3ros_pkg)/config/joint_velocity.yaml" command="load"/>
+	<rosparam file="$(find omni3ros_pkg)/config/joint_velocity2.yaml" command="load"/>
+
+	<!-- Controllers-->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/open_base" 
+	args="--namespace=/open_base
+	joint_state_controller
+	left_joint_velocity_controller
+	back_joint_velocity_controller
+	right_joint_velocity_controller
+	"/>
+
+	<!-- Function joint_state_publisher Nodes, publishing robot joint status  -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    
+    <!-- Function robot_state_publisher Nodes, publishing tf  -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+</launch>
+
