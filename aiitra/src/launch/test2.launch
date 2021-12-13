@@ -50,5 +50,7 @@
     <!-- Function robot_state_publisher Nodes, publishing tf  -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
+    <node name="odom_publisher" type="odomPub" pkg="aiitra" />
+
 </launch>
 

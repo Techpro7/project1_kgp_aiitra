@@ -1,12 +1,12 @@
 <launch>
-  <arg name="scan_topic"  default="my_mm_robot/laser/scan" />
-  <arg name="base_frame"  default="link_chassis"/>
+  <arg name="scan_topic"  default="laser/scan"/>
+  <arg name="base_frame"  default="base_link"/>
   <arg name="odom_frame"  default="odom"/>
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
     <param name="base_frame" value="$(arg base_frame)"/>
     <param name="odom_frame" value="$(arg odom_frame)"/>
-    <param name="map_update_interval" value="5.0"/>
+    <param name="map_update_interval" value="1.0"/>
     <param name="maxUrange" value="6.0"/>
     <param name="maxRange" value="8.0"/>
     <param name="sigma" value="0.05"/>

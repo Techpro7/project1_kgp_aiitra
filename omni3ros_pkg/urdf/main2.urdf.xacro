@@ -129,8 +129,7 @@
         </range>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-	<robotNamespace>open_base</robotNamespace>
-        <topicName>/open_base/laser/scan</topicName>
+        <topicName>/laser/scan</topicName>
         <frameName>base_link</frameName>
       </plugin>
     </sensor>
