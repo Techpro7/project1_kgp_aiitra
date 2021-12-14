@@ -9,11 +9,11 @@
   <arg name="robot" default="$(find omni3ros_pkg)/urdf/main2.urdf.xacro"/>
   <arg name="extra_gazebo_args" default="--verbose"/>
 
-  <!--env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find aiitra)/src/mesh"/>
-  <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find aiitra)/src/mesh"/-->
+  <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find aiitra)/src/mesh"/>
+  <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find aiitra)/src/mesh"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!--arg name="world_name" value="$(find aiitra)/src/worlds/aiitra_world_4.world"/-->
+    <arg name="world_name" value="$(find aiitra)/src/worlds/aiitra_world_3.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>

@@ -197,3 +197,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+add_executable(omni3ros_pkg_tf_broadcast src/omni3ros_pkg_tf_broadcast.cpp)
+target_link_libraries(omni3ros_pkg_tf_broadcast ${catkin_LIBRARIES})
