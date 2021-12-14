@@ -102,7 +102,7 @@
   </link>
 
   <joint name="joint_sensor_laser" type="fixed">
-    <origin rpy="0  0  1.570796" xyz="0    0    0.09"/>
+    <origin rpy="0  0  0" xyz="0    0    0.09"/>
     <parent link="base_link"/>
     <child link="sensor_laser"/>
   </joint>
@@ -118,8 +118,8 @@
           <horizontal>
             <samples>360</samples>
             <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle>
+            <min_angle>0</min_angle>
+            <max_angle>3.14159</max_angle>
           </horizontal>
         </scan>
         <range>
