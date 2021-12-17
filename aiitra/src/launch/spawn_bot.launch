@@ -1,0 +1,17 @@
+<launch>
+  <arg name="bot_name"/>
+  <arg name="namespace"/>
+  <arg name="model" default="$(find omni3ros_pkg)/urdf/main2.urdf.xacro"/>
+  <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.0"/>
+
+  <!-- send the robot XML to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model) namespace:=$(arg namespace)" />
+
+  <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />
+
+  <node name="urdf_$(arg namespace)" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model $(arg namespace) -param robot_description"/>
+
+</launch>

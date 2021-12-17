@@ -6,7 +6,7 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="robot" default="$(find omni3ros_pkg)/urdf/main2.urdf.xacro"/>
+  <arg name="robot" default="$(find omni3ros_pkg)/urdf/main3.urdf.xacro"/>
   <arg name="extra_gazebo_args" default="--verbose"/>
 
   <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find aiitra)/src/mesh"/>

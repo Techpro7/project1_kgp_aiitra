@@ -1,0 +1,12 @@
+gazebo_ros_control:
+
+        pid_gains:
+
+            rim_left_joint:
+                {p: 0.001, i: 0.0, d: 0.0}
+
+            rim_back_joint:
+                {p: 0.001, i: 0.0, d: 0.0}
+
+            rim_right_joint:
+                {p: 0.001, i: 0.0, d: 0.0}
