@@ -18,8 +18,8 @@ using namespace std;
 
 /*defining global parameters*/
 double g=9.81,m=3.50,Izz=0.07;
-double lin_Kp=10,lin_Kd=2;
-double ang_Kp=10,ang_Kd=2;
+double lin_Kp=20,lin_Kd=4;
+double ang_Kp=10,ang_Kd=3;
 double t_res=0.001,k=0.1;
 
 
@@ -71,8 +71,10 @@ void modelStatesCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 	int i;
 	for (i = 0;; ++i)
 	{
-		if( (msg->name[i]).compare(roomba.name)  )
+		if( (msg->name[i]).compare(roomba.name) == 0 ){
+			//cout<<msg->name[i]<<" == "<<roomba.name<<"\n";
 			break;
+		}
 	}
 
 	roomba.pos[0] = msg->pose[i].position.x;
@@ -110,6 +112,11 @@ Eigen::Vector3d PID(){
 	double err_x = roomba.goal[0] - roomba.pos[0];
 	double err_y = roomba.goal[1] - roomba.pos[1];
 
+	cout<<"pos : "<<roomba.pos[0]<<","<<roomba.pos[1]<<"\n";
+	cout<<"goal : "<<roomba.goal[0]<<","<<roomba.goal[1]<<"\n";
+
+	cout<<"err_x = "<<err_x<<"  err_y = "<<err_y<<"\n";
+
 	double Ux = lin_Kp*err_x + lin_Kd*(0 - roomba.linear_vel[0]);
 	double Uy = lin_Kp*err_y + lin_Kd*(0 - roomba.linear_vel[1]);
 
@@ -117,9 +124,12 @@ Eigen::Vector3d PID(){
 
 	E = ToEulerAngles(Q);
 
-	double err_ang = des_ang - E.yaw;
+	cout<<"curr_ang : "<<E.yaw<<"\n";
+	cout<<"des_ang : "<<des_ang<<"\n";
 
-	double Uz = ang_Kp*err_ang + ang_Kd*(0 - roomba.linear_vel[2]);
+	double err_ang = des_ang - E.yaw;
+	cout<<"err_ang = "<<err_ang<<"\n";
+	double Uz = ang_Kp*(-err_ang+1.5707) + ang_Kd*(0 - roomba.linear_vel[2]);
 
 	Eigen::Vector3d U(Ux, Uy, Uz);
 
@@ -159,6 +169,9 @@ int main(int argc, char **argv){
 
 		Eigen::Vector3d U = PID();
 
+		cout<<"U = "<< U[0]<<" "<< U[1]<<" "<< U[2]<<"\n";
+
+
 		Eigen::Matrix3d Inv;
 
 		Inv<< -0.86602540378,		0.5,		0.34,
@@ -168,6 +181,7 @@ int main(int argc, char **argv){
 		Eigen::Vector3d V_(U[0]*cos(E.yaw)+U[1]*sin(E.yaw), U[1]*cos(E.yaw)-U[0]*sin(E.yaw), U[2]);
 
 		Eigen::Vector3d vel = Inv*V_;
+		cout<<"vel = "<< vel[0]<<" "<< vel[1]<<" "<< vel[2]<<"\n";		
 
 		std_msgs::Float64 msg_left, msg_right, msg_back;
 
