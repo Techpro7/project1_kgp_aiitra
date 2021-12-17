@@ -14,7 +14,7 @@
   <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find aiitra)/src/mesh"/>
   
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find aiitra)/src/worlds/aiitra_world_1.world"/>
+    <!--arg name="world_name" value="$(find aiitra)/src/worlds/aiitra_world_1.world"/ -->
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
@@ -27,7 +27,8 @@
   <group ns="$(arg bot_name)1">
 
     <arg name="_ns" value="$(arg bot_name)1"/>
-  
+    <param name="botName" type="str" value="$(arg bot_name)1"/>
+
     <include file="$(find aiitra)/src/launch/spawn_bot.launch">
       <arg name="bot_name" value="$(arg bot_name)" />
       <arg name="namespace" value="$(arg _ns)" />
@@ -49,12 +50,14 @@
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
     <node name="odom_publisher" type="odomPub" pkg="aiitra" />
+    <!--node name="pid_control" type="pid_controller" pkg="aiitra" /-->
 
   </group>
 
   <group ns="$(arg bot_name)2">
 
     <arg name="_ns" value="$(arg bot_name)2"/>
+    <!--param name="botName" type="str" value="$(arg bot_name)2"/-->
   
     <include file="$(find aiitra)/src/launch/spawn_bot.launch">
       <arg name="bot_name" value="$(arg bot_name)" />
@@ -77,6 +80,7 @@
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
     <node name="odom_publisher" type="odomPub" pkg="aiitra" />
+    <node name="pid_control" type="pid_controller" pkg="aiitra" />
 
   </group>
 

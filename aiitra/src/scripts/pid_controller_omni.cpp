@@ -94,4 +94,29 @@ omega_wheel.push_back(sqrt(f[2]/k));
 }
 
 
+int main(int argc, char **argv){
 
+	ros::init(argc, argv, "pid_node");
+	ros::NodeHandle n;
+
+	n.getParam("~_ns", bot_name);
+
+	String traj_topic = 
+
+	ros::Subscriber sub = n.subscribe("/gazebo/model_states", 1000, modelStatesCallback);
+	ros::Subscriber traj_pub = n.advertise<nav_msgs::Path>("trajectory", 50);
+
+	ros::Rate r(50);
+
+	while(n.ok()){
+
+		ros::spinOnce();
+
+		nav_msgs::Path traj;
+
+		
+
+	}
+
+
+}

@@ -62,6 +62,25 @@ void modelStatesCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
   open_base.angular_vel[2] = msg->twist[1].angular.z;
 }
 
+void trajectoryStatesCallback(const nav_msgs::Path::ConstPtr& msg)
+{
+  open_base.pos[0] = msg->pose[1].position.x;
+  open_base.pos[1] = msg->pose[1].position.y;
+  open_base.pos[2] = msg->pose[1].position.z;
+
+  open_base.orientation[0] = msg->pose[1].orientation.x;
+  open_base.orientation[1] = msg->pose[1].orientation.y;
+  open_base.orientation[2] = msg->pose[1].orientation.z;
+  open_base.orientation[3] = msg->pose[1].orientation.w;
+
+  open_base.linear_vel[0] = msg->twist[1].linear.x;
+  open_base.linear_vel[1] = msg->twist[1].linear.y;
+  open_base.linear_vel[2] = msg->twist[1].linear.z;
+
+  open_base.angular_vel[0] = msg->twist[1].angular.x;
+  open_base.angular_vel[1] = msg->twist[1].angular.y;
+  open_base.angular_vel[2] = msg->twist[1].angular.z;
+}
 
 int main(int argc, char **argv){
 
@@ -79,7 +98,7 @@ int main(int argc, char **argv){
 
 		nav_msgs::Path traj;
 
-		
+
 
 	}
 
