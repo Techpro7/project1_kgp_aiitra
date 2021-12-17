@@ -27,6 +27,33 @@ vector<double> current_state_vel;
 vector<double> desired_state_acc;
 vector<double> current_state_acc;
 
+void TrajectoryCallback(const trajectory_msgs::MultiDOFJointTrajectory::ConstPtr& msg){
+
+	Eigen::Vector3d des_posW, des_velW, des_accW, des_jerkW, des_snapW, des_eulW, des_omgW;
+	Eigen::Quaternion<double> des_quatW;
+
+	mav_msgs::EigenTrajectoryPoint traj_reference;
+	mav_msgs::eigenTrajectoryPointFromMsg(msg->points.front(), &traj_reference);
+
+	des_posW = traj_reference.position_W;
+	des_velW = traj_reference.velocity_W;
+	des_accW = traj_reference.acceleration_W;
+	des_jerkW = traj_reference.jerk_W;
+	des_snapW = traj_reference.snap_W;
+
+	des_quatW = traj_reference.orientation_W_B;
+	mav_msgs::getEulerAnglesFromQuaternion(des_quatW, &des_eulW);
+	des_omgW = traj_reference.angular_velocity_W;
+
+	desState.position = des_posW;
+	desState.velocity = des_velW;
+	desState.acceleration = des_accW;
+	desState.euler_angle = des_eulW;
+	desState.angular_velocity = des_omgW;
+}
+
+
+
 
 for(int i=0;i<3;i++)
 {
