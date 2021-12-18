@@ -120,14 +120,28 @@ Eigen::Vector3d PID(){
 	double Ux = lin_Kp*err_x + lin_Kd*(0 - roomba.linear_vel[0]);
 	double Uy = lin_Kp*err_y + lin_Kd*(0 - roomba.linear_vel[1]);
 
-	double des_ang = atan2(Uy,Ux);
+	double des_ang = atan2(err_y,err_x);
+	if( des_ang < 0 )
+		des_ang = des_ang + 6.283185307179586 ;
 
 	E = ToEulerAngles(Q);
+
+	if(err_y == 0 && err_x ==0)
+		des_ang = E.yaw;
 
 	cout<<"curr_ang : "<<E.yaw<<"\n";
 	cout<<"des_ang : "<<des_ang<<"\n";
 
 	double err_ang = des_ang - E.yaw;
+
+	if(err_ang > 3.141592653589793)
+	{
+		if(err_ang < 0)
+			err_ang = err_ang + 6.283185307179586;
+		else if(err_ang > 0)
+			err_ang = err_ang - 6.283185307179586;
+	}
+
 	cout<<"err_ang = "<<err_ang<<"\n";
 	double Uz = ang_Kp*(-err_ang+1.5707) + ang_Kd*(0 - roomba.linear_vel[2]);
 
